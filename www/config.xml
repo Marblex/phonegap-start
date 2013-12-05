@@ -6,7 +6,7 @@
         id        = "com.tommarples.cookingapp"
         version   = "99.99">
 
-    <name>Tom Marples</name>
+    <name>iRecipe</name>
 
     <description>
         A cooking application for recipe discovery
