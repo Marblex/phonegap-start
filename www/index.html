@@ -1,33 +1,103 @@
-
 <!DOCTYPE html>
-<html>
+<html class="index">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Main Screen</title>
-		<link rel="stylesheet" href="css/android2.min.css" />
-		<link rel="stylesheet" href="jquerymobile/jquery.mobile.structure-1.3.2.min.css" />
-		<script src="jquerymobile/jquery-1.9.1.min.js"></script>
-		<script src="jquerymobile/jquery.mobile-1.3.2.min.js"></script>
+		<meta http-equiv="content-type" content="text/html" />
+
+		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
+		<link rel="stylesheet" type="text/css" href="css/android.css" />
+		
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jPushMenu.js"></script>
+		<script>
+			jQuery(document).ready(function($) {
+				$('.toggle-menu').jPushMenu();
+			});
+
+
+			var recipes = [
+				{ "recipeName":"Cheesy Pasta" , "ingredient1":"cheese" , "ingredient2":"pasta" , "recipeDescription":"1. Boil pasta. 2. Grate cheese. 3. Put on pasta." }, 
+				{ "recipeName":"Tomato Pasta" , "ingredient1":"tomatoes" , "ingredient2":"pasta" , "recipeDescription":"1. Boil pasta. 2. Drain and add tomatoes." },
+			];
+
+
+			function find(){
+            	var userIngredient1 = document.getElementById("ingredient1").value;
+            	var userIngredient2 = document.getElementById("ingredient2").value;
+            	var userIngredient3 = document.getElementById("ingredient3").value;
+
+            	for (var i = 0; i < recipes.length; i++) {
+            		
+            		var ingredient1 = recipes[i].ingredient1
+  					var ingredient2 = recipes[i].ingredient2
+  					var ingredient3 = recipes[i].ingredient3
+	
+
+					var match = 0;
+
+					if(ingredient1 == userIngredient1 || ingredient1 == userIngredient2 || ingredient1 == userIngredient3){
+						match = match + 1;
+					} 
+					if(ingredient2 == userIngredient1 || ingredient2 == userIngredient2 || ingredient2 == userIngredient3){
+						match = match + 1;
+					}
+
+
+					var numOfIngredients = 0;
+
+					if(ingredient1 != null){
+						numOfIngredients = numOfIngredients + 1;
+					} 
+
+					if(ingredient2 != null){
+						numOfIngredients = numOfIngredients + 1;
+					} 
+
+					if(ingredient3 != null){
+						numOfIngredients = numOfIngredients + 1;
+					} 
+
+
+					if(match >= numOfIngredients){
+						alert(recipes[i].recipeName);
+					}
+
+
+  				}
+  			}
+
+		</script>
+		
+		<title>Find Recipe</title>
 	</head>
 	<body>
-		<div data-role="page" data-theme="a">
-			<div data-role="header" data-position="inline">
-				<h1>It Worked!</h1>
-			</div>
-			<div data-role="content" data-theme="a">
-				<p>Your theme was successfully downloaded. You can use this page as a reference for how to link it up!</p>
-				<p>This is content color swatch "A" and a preview of a <a href="#" class="ui-link">link</a>.</p>
-				<label for="slider1">Input slider:</label>
-				<input type="range" name="slider1" id="slider1" value="50" min="0" max="100" data-theme="a" />
-				<fieldset data-role="controlgroup"  data-type="horizontal" data-role="fieldcontain">
-				<legend>Cache settings:</legend>
-				<input type="radio" name="radio-choice-a1" id="radio-choice-a1" value="on" checked="checked" />
-				<label for="radio-choice-a1">On</label>
-				<input type="radio" name="radio-choice-a1" id="radio-choice-b1" value="off"  />
-				<label for="radio-choice-b1">Off</label>
-				</fieldset>
-			</div>
+		
+		<!-- Menu -->
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+		<h3>Menu</h3>
+			<a href="index.html">Find Recipe</a>
+			<a href="myrecipes.html">My Recipes</a>
+			<a href="addrecipe.html">Add recipe</a>
+			<a href="randomrecipe.html">Random Recipe</a>
+			<a href="settings.html">Settings</a>
+		</nav>
+		
+		<div id="header">
+			<button class="toggle-menu menu-left push-body box-shadow-menu">=</button>
+			<h1>
+				Find Recipe
+			</h1>
+			<h2>
+				-------
+			</h2>
 		</div>
+
+		<div class="ingredients-form" style="width:356px">
+			<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
+			<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
+			<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+    		<button onclick="find()">Find Recipes</button>
+		</div>
+
+
 	</body>
 </html>

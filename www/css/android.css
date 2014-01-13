@@ -1,0 +1,117 @@
+body{
+	background-color: #ffffff; /* Background color */
+	color: #222; /* Foreground color used for text */
+	font-family: helvetica;
+	font-size: 14px;
+	margin: 0; /* Amount of negative space around the outside of the body */
+	padding: 0; /* Amount of negative space around the inside of the body */
+	
+}
+
+#block{
+	display: inline;
+}
+
+#header{
+	background-color: #0d77b6;
+	border-bottom: 1px solid #666;
+	color: #222;
+	display: block;
+	font-size: 12px;
+	padding: 10px 0;
+	text-decoration: none;
+	color: #ffffff;
+	text-align: center;
+
+}
+
+#header h1{ 
+	display: inline;
+	margin: 0;
+	padding: 0;
+	font-weight: 200;
+	color: #ffffff;
+}
+
+#header h2{
+	float: right;
+	display: inline;
+	opacity: 0;
+}
+
+#header button{
+	display: inline;
+	float: left;
+	margin-left: 7px;
+	margin-top: -1px;
+	margin-right: 0px;
+    padding: 0px 8px;
+    background: #0d77b6;
+    color: #0d77b6;
+    border-radius: 5px;
+    border: solid 0px;  
+    font-size: 25px; 
+
+}
+
+#header ul{
+	list-style: none;
+	margin: 10px;
+	padding: 0;
+}
+
+#header ul li a{
+	background-color: #FFFFFF;
+	border: 1px solid #999999;
+	color: #222222;
+	display: block;
+	font size: 17px;
+	font-weight: bold;
+	margin-bottom: -1px;
+	padding: 12px 10px;
+	text-decoration: none;
+}
+
+#content, #sidebar{
+	padding: 10px;
+}
+
+#footer{
+	display: none;
+}
+
+#header container{
+	padding: 10px;
+	margin: 10px;
+}
+
+.ingredients-form input[type="text"]{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #0d77b6;
+   
+  box-sizing: border-box;
+  outline: none;
+   
+  font-size: 1.4em;
+  padding: 0.6em 0.6em;
+  width: 100%;
+}
+
+.box-shadow-menu {
+  position: relative;
+}
+
+.box-shadow-menu:before {
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.1em;
+  width: 1em;
+  height: 0.15em;
+  background: white;
+  box-shadow: 
+    0 0.4em 0 0 white,
+    0 0.8em 0 0 white;
+}

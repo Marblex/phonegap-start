@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html" />
+
+		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
+		<link rel="stylesheet" type="text/css" href="css/android.css" />
+		
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script src="js/jPushMenu.js"></script>
+		<script>
+			jQuery(document).ready(function($) {
+				$('.toggle-menu').jPushMenu();
+			});
+		</script>
+		
+		<title>My Recipes</title>
+	</head>
+	<body>
+		
+		<!-- Menu -->
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
+		<h3>Menu</h3>
+			<a href="index.html">Find Recipe</a>
+			<a href="myrecipes.html">My Recipes</a>
+			<a href="addrecipe.html">Add recipe</a>
+			<a href="randomrecipe.html">Random Recipe</a>
+			<a href="settings.html">Settings</a>
+		</nav>
+		
+		<div id="header">
+			<button class="toggle-menu menu-left push-body">=</button>
+			<h1>
+				My Recipes
+			</h1>
+			<h2>
+				-------
+			</h2>
+		</div>
+	</body>
+</html>
