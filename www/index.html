@@ -5,71 +5,15 @@
 
 		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/android.css" />
-		
+
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jPushMenu.js"></script>
-		<script>
-			jQuery(document).ready(function($) {
-				$('.toggle-menu').jPushMenu();
-			});
-
-
-			var recipes = [
-				{ "recipeName":"Cheesy Pasta" , "ingredient1":"cheese" , "ingredient2":"pasta" , "recipeDescription":"1. Boil pasta. 2. Grate cheese. 3. Put on pasta." }, 
-				{ "recipeName":"Tomato Pasta" , "ingredient1":"tomatoes" , "ingredient2":"pasta" , "recipeDescription":"1. Boil pasta. 2. Drain and add tomatoes." },
-			];
-
-
-			function find(){
-            	var userIngredient1 = document.getElementById("ingredient1").value;
-            	var userIngredient2 = document.getElementById("ingredient2").value;
-            	var userIngredient3 = document.getElementById("ingredient3").value;
-
-            	for (var i = 0; i < recipes.length; i++) {
-            		
-            		var ingredient1 = recipes[i].ingredient1
-  					var ingredient2 = recipes[i].ingredient2
-  					var ingredient3 = recipes[i].ingredient3
-	
-
-					var match = 0;
-
-					if(ingredient1 == userIngredient1 || ingredient1 == userIngredient2 || ingredient1 == userIngredient3){
-						match = match + 1;
-					} 
-					if(ingredient2 == userIngredient1 || ingredient2 == userIngredient2 || ingredient2 == userIngredient3){
-						match = match + 1;
-					}
-
-
-					var numOfIngredients = 0;
-
-					if(ingredient1 != null){
-						numOfIngredients = numOfIngredients + 1;
-					} 
-
-					if(ingredient2 != null){
-						numOfIngredients = numOfIngredients + 1;
-					} 
-
-					if(ingredient3 != null){
-						numOfIngredients = numOfIngredients + 1;
-					} 
-
-
-					if(match >= numOfIngredients){
-						alert(recipes[i].recipeName);
-					}
-
-
-  				}
-  			}
-
-		</script>
+		<script type="text/javascript" src="js/backendJavascript.js"></script>
+		<script type="text/javascript" src="js/phonegap.js"></script>
 		
 		<title>Find Recipe</title>
 	</head>
-	<body>
+	<body onload="onBodyLoad()">
 		
 		<!-- Menu -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
@@ -95,9 +39,29 @@
 			<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
 			<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
 			<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+			<p>
+             	<label>Number of additional ingredients</label>
+             	<select id = "additionalIngredients">
+               		<option value = "1">1</option>
+               		<option value = "2">2</option>
+               		<option value = "3">3</option>
+               		<option value = "4">4</option>
+            	</select>
+          	</p>
     		<button onclick="find()">Find Recipes</button>
+    		<br>
+    		<br>
 		</div>
+
+		<span style="font-weight:bold;">Search Results:</span>
+		<br><br>
+		<div id="results">
+		</div>
+
 
 
 	</body>
 </html>
+
+
+

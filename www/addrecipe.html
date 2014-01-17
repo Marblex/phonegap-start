@@ -8,15 +8,12 @@
 		
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jPushMenu.js"></script>
-		<script>
-			jQuery(document).ready(function($) {
-				$('.toggle-menu').jPushMenu();
-			});
-		</script>
-		
+		<script type="text/javascript" src="js/backendJavascript.js"></script>
+		<script type="text/javascript" src="js/phonegap.js"></script>
+
 		<title>Add Recipe</title>
 	</head>
-	<body>
+	<body onload="onBodyLoad()">
 		
 		<!-- Menu -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
@@ -29,7 +26,7 @@
 		</nav>
 		
 		<div id="header">
-			<button class="toggle-menu menu-left push-body">=</button>
+			<button class="toggle-menu menu-left push-body box-shadow-menu">=</button>
 			<h1>
 				Add Recipe
 			</h1>
@@ -37,5 +34,19 @@
 				-------
 			</h2>
 		</div>
+
+		<div class="ingredients-form" style="width:356px">
+
+			<input id="txRecipeName" type="text" placeholder="Recipe Name">
+			<input id="txIngredient1" type="text" placeholder="Ingredient 1">
+			<input id="txIngredient2" type="text" placeholder="Ingredient 2">
+			<input id="txIngredient3" type="text" placeholder="Ingredient 3">
+			<input type="button" value="Add record" onClick="AddValueToDB()">
+			<input type="button" value="Refresh" onClick="ListDBValues()"> <br>
+			<br>
+			<span style="font-weight:bold;">Currently in DB:</span>
+			<span id="lbRecipes"></span>
+		</div>
+
 	</body>
 </html>
