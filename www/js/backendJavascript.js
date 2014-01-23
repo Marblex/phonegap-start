@@ -14,7 +14,7 @@ var maxSize = 65535;
 		 
 // this is called when an error happens in a transaction
 function errorHandler(transaction, error) {
-	alert('Error: ' + error.message + ' code: ' + error.code);
+	console.log('Error: ' + error.message + ' code: ' + error.code);
 		 
 }
 		 
@@ -47,7 +47,8 @@ function onBodyLoad(){
 		// this line actually creates the table User if it does not exist and sets up the three columns and their types
 		// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 		// easily from the table.
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS User(RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 	},errorHandler,successCallBack);
 		 
 }
@@ -55,13 +56,21 @@ function onBodyLoad(){
 
 function DropDB(){
 	db.transaction(function(tx){
-		tx.executeSql( 'DROP TABLE User',nullHandler,nullHandler);
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS User(RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'DROP TABLE AllRecipes',nullHandler,nullHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 	},errorHandler,successCallBack);
 
 	ListDBValues();
 }
 
+function MyDropDB(){
+	db.transaction(function(tx){
+		tx.executeSql( 'DROP TABLE MyRecipes',nullHandler,nullHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+	},errorHandler,successCallBack);
+
+	ListDBValues();
+}
 		 
 // list the values in the database to the screen using jquery to update the #lbUsers element
 function ListDBValues() {
@@ -77,7 +86,7 @@ function ListDBValues() {
 	// this next section will select all the content from the User table and then go through it row by row
 	// appending the UserId  FirstName  LastName to the  #lbUsers element on the page
 	db.transaction(function(transaction) {
-		transaction.executeSql('SELECT * FROM User;', [], function(transaction, result) {
+		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
 			if (result != null && result.rows != null) {
 		        for (var i = 0; i < result.rows.length; i++) {
 		          	var row = result.rows.item(i);
@@ -100,7 +109,7 @@ function AddValueToDB() {
 		 	
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO User(RecipeName, Ingredient1, Ingredient2, Ingredient3) VALUES (?,?,?,?)',[$('#txRecipeName').val(), $('#txIngredient1').val(), $('#txIngredient2').val(), $('#txIngredient3').val()],nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO AllRecipes(RecipeName, Ingredient1, Ingredient2, Ingredient3) VALUES (?,?,?,?)',[$('#txRecipeName').val(), $('#txIngredient1').val(), $('#txIngredient2').val(), $('#txIngredient3').val()],nullHandler,errorHandler);
 	});
 
 	// this calls the function that will show what is in the User table in the database
@@ -109,6 +118,7 @@ function AddValueToDB() {
 	return false;
 		 
 }
+
 
 
 function find() {
@@ -134,12 +144,11 @@ function find() {
 		// this next section will select all the content from the User table and then go through it row by row
 		// appending the UserId  FirstName  LastName to the  #lbUsers element on the page
 	 	db.transaction(function(transaction) {
-	   		transaction.executeSql('SELECT * FROM User;', [], function(transaction, result) {
+	   		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
 	      		if (result != null && result.rows != null) {
 	        		for (var i = 0; i < result.rows.length; i++) {
 	          			var row = result.rows.item(i);
-	          			$('#lbRecipes').append('<br>' + row.RecipeName+ ' ' + row.Ingredient1+ ' ' + row.Ingredient2+ ' ' + row.Ingredient3+ ' ');
-
+	          			
 	          			var recipeName = row.RecipeName
 	          			var ingredient1 = row.Ingredient1
 				   	 	var ingredient2 = row.Ingredient2
@@ -193,7 +202,9 @@ function find() {
 
 
 						if(match == numOfIngredients){
+							missingIngredients = "none";
 							display(row, missingIngredients);
+
 						}
 						if(extraIngredients > 0){
 							if(match == oneIngredientNeeded){
@@ -205,7 +216,6 @@ function find() {
 								display(row, missingIngredients);
 							}
 						}
-
 	        		}
 	      		}
 	     	},errorHandler);
@@ -217,8 +227,116 @@ function find() {
 
 
 function display(row, missingIngredients){
-	div.innerHTML = div.innerHTML + row.RecipeName + " (ingredients needed: " + missingIngredients + ")<br><br>";
+	var id = row.RecipeID
+	
+	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div></br>'
 }
+
+
+function addToMyRecipes(id){
+
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
+			if (result != null && result.rows != null) {
+		        for (var i = 0; i < result.rows.length; i++) {
+		          	var row = result.rows.item(i);
+		          	
+		          	if(row.RecipeID == id){
+		          		var MyID = row.RecipeID
+          				var newName = row.RecipeName
+          				var ing1 = row.Ingredient1
+			   	 		var ing2 = row.Ingredient2
+			  			var ing3 = row.Ingredient3
+
+			  			db.transaction(function(transaction) {
+					  		transaction.executeSql('INSERT INTO MyRecipes(MyRecipeName, MyIngredient1, MyIngredient2, MyIngredient3) VALUES (?,?,?,?)',[newName, ing1, ing2, ing3]);
+						});
+
+			  			alert("Added to My Recipes");
+			  		}
+		        }
+			}
+		},errorHandler);
+	},errorHandler,nullHandler);
+
+	MyListDBValues();
+
+}
+
+
+function MyListDBValues() {
+	
+	if (!window.openDatabase) {
+		alert('Databases are not supported in this browser.');
+		return;
+	}
+		 
+	// this line clears out any content in the #lbUsers element on the page so that the next few lines will show updated
+	// content and not just keep repeating lines
+	$('#MylbRecipes').html('');
+		 
+	// this next section will select all the content from the User table and then go through it row by row
+	// appending the UserId  FirstName  LastName to the  #lbUsers element on the page
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT * FROM MyRecipes;', [], function(transaction, result) {
+			if (result != null && result.rows != null) {
+		        for (var i = 0; i < result.rows.length; i++) {
+		          	var row = result.rows.item(i);
+		          	$('#MylbRecipes').append('<br>' + row.MyRecipeName+ ' ' + row.MyIngredient1+ ' ' + row.MyIngredient2+ ' ' + row.MyIngredient3+ ' ');
+		        }
+			}
+		},errorHandler);
+	},errorHandler,nullHandler);
+		 
+	return;
+		 
+}
+
+
+function showMyRecipes(){
+
+	db = openDatabase(shortName, version, displayName,maxSize);
+
+	myRecipes = document.getElementById("MyRecipes");
+	myRecipes.innerHTML = "";
+
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT * FROM MyRecipes;', [], function(transaction, result) {
+			if (result != null && result.rows != null) {
+		        for (var i = 0; i < result.rows.length; i++) {
+		          	var row = result.rows.item(i);
+
+		          	var myRecipeID = row.MyRecipeID
+
+		          	myRecipes.innerHTML = myRecipes.innerHTML + row.MyRecipeName + '<button onclick="removeFromMyRecipes(' + myRecipeID + ')">Remove from My Recipes</button> <br><br>';
+		        }
+			}
+		},errorHandler);
+	},errorHandler,nullHandler);
+		 
+	return;
+
+}
+
+function removeFromMyRecipes(myRecipeID){
+
+	db.transaction(function(transaction) {
+    	transaction.executeSql("DELETE FROM MyRecipes WHERE MyRecipeID=?", [myRecipeID]);
+	});
+	
+	showMyRecipes();
+
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

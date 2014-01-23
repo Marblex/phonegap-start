@@ -9,10 +9,11 @@
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
+		<script type="text/javascript" src="js/phonegap.js"></script>
 		
 		<title>My Recipes</title>
 	</head>
-	<body>
+	<body onload="showMyRecipes()">
 		
 		<!-- Menu -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
@@ -32,6 +33,9 @@
 			<h2>
 				-------
 			</h2>
+		</div>
+		<br>
+		<div id="MyRecipes">
 		</div>
 	</body>
 </html>

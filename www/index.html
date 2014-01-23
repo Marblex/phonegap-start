@@ -31,34 +31,33 @@
 				Find Recipe
 			</h1>
 			<h2>
-				-------
+				.
 			</h2>
 		</div>
+		<div class="background">
+			<div class="ingredients-form">
+				<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
+				<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
+				<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+				<p>
+	             	<label>Number of additional ingredients</label>
+	             	<select id = "additionalIngredients">
+	               		<option value = "1">1</option>
+	               		<option value = "2">2</option>
+	               		<option value = "3">3</option>
+	               		<option value = "4">4</option>
+	            	</select>
+	          	</p>
+	    		<a href="#" class="findButton" id="findButton" onclick="find()">Find Recipes</a>
+	    		<br>
+	    		<br>
+			</div>
 
-		<div class="ingredients-form" style="width:356px">
-			<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
-			<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
-			<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
-			<p>
-             	<label>Number of additional ingredients</label>
-             	<select id = "additionalIngredients">
-               		<option value = "1">1</option>
-               		<option value = "2">2</option>
-               		<option value = "3">3</option>
-               		<option value = "4">4</option>
-            	</select>
-          	</p>
-    		<button onclick="find()">Find Recipes</button>
-    		<br>
-    		<br>
+			<span style="font-weight:bold;">Search Results:</span>
+			<br><br>
+			<div id="results">
+			</div>
 		</div>
-
-		<span style="font-weight:bold;">Search Results:</span>
-		<br><br>
-		<div id="results">
-		</div>
-
-
 
 	</body>
 </html>

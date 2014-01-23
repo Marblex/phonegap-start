@@ -13,63 +13,37 @@ body{
 }
 
 #header{
-	background-color: #0d77b6;
-	border-bottom: 1px solid #666;
-	color: #222;
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(112,189,34,1)), color-stop(0%, rgba(83,148,22,1)), color-stop(49%, rgba(113,186,41,1)), color-stop(100%, rgba(112,189,34,1)));
+	background: -webkit-linear-gradient(left, rgba(112,189,34,1) 0%, rgba(83,148,22,1) 0%, rgba(113,186,41,1) 49%, rgba(112,189,34,1) 100%);
+	border-bottom: 1px solid #ffffff;
 	display: block;
-	font-size: 12px;
-	padding: 10px 0;
-	text-decoration: none;
-	color: #ffffff;
+	font-size: 11px;
+	padding: 15px;
 	text-align: center;
 
 }
 
 #header h1{ 
 	display: inline;
-	margin: 0;
-	padding: 0;
 	font-weight: 200;
 	color: #ffffff;
 }
 
 #header h2{
 	float: right;
-	display: inline;
-	opacity: 0;
+	padding-right: 29px;
+	color:transparent;
 }
 
 #header button{
 	display: inline;
 	float: left;
-	margin-left: 7px;
-	margin-top: -1px;
-	margin-right: 0px;
-    padding: 0px 8px;
-    background: #0d77b6;
-    color: #0d77b6;
+    background: transparent;
+    color: transparent;
     border-radius: 5px;
     border: solid 0px;  
-    font-size: 25px; 
+    font-size: 20px; 
 
-}
-
-#header ul{
-	list-style: none;
-	margin: 10px;
-	padding: 0;
-}
-
-#header ul li a{
-	background-color: #FFFFFF;
-	border: 1px solid #999999;
-	color: #222222;
-	display: block;
-	font size: 17px;
-	font-weight: bold;
-	margin-bottom: -1px;
-	padding: 12px 10px;
-	text-decoration: none;
 }
 
 #content, #sidebar{
@@ -80,16 +54,11 @@ body{
 	display: none;
 }
 
-#header container{
-	padding: 10px;
-	margin: 10px;
-}
-
 .ingredients-form input[type="text"]{
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 2px solid #0d77b6;
+  border-bottom: 2px solid #5da11d;
    
   box-sizing: border-box;
   outline: none;
@@ -114,4 +83,92 @@ body{
   box-shadow: 
     0 0.4em 0 0 white,
     0 0.8em 0 0 white;
+}
+
+.findButton {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0d78b6), color-stop(1, #0aa5ff) );
+	background:-moz-linear-gradient( center top, #0d78b6 5%, #0aa5ff 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d78b6', endColorstr='#0aa5ff');
+	background-color:#0d78b6;
+	-webkit-border-top-left-radius:20px;
+	-moz-border-radius-topleft:20px;
+	border-top-left-radius:20px;
+	-webkit-border-top-right-radius:20px;
+	-moz-border-radius-topright:20px;
+	border-top-right-radius:20px;
+	-webkit-border-bottom-right-radius:20px;
+	-moz-border-radius-bottomright:20px;
+	border-bottom-right-radius:20px;
+	-webkit-border-bottom-left-radius:20px;
+	-moz-border-radius-bottomleft:20px;
+	border-bottom-left-radius:20px;
+	text-indent:0;
+	border:1px solid #1470cc;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-style:normal;
+	height:65px;
+	line-height:65px;
+	width:131px;
+	text-decoration:none;
+	text-align:center;
+}
+
+.addButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
+	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
+	background-color:#b8e356;
+	-webkit-border-top-left-radius:11px;
+	-moz-border-radius-topleft:11px;
+	border-top-left-radius:11px;
+	-webkit-border-top-right-radius:11px;
+	-moz-border-radius-topright:11px;
+	border-top-right-radius:11px;
+	-webkit-border-bottom-right-radius:11px;
+	-moz-border-radius-bottomright:11px;
+	border-bottom-right-radius:11px;
+	-webkit-border-bottom-left-radius:11px;
+	-moz-border-radius-bottomleft:11px;
+	border-bottom-left-radius:11px;
+	text-indent:0;
+	border:1px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:34px;
+	font-weight:bold;
+	font-style:normal;
+	height:37px;
+	line-height:37px;
+	width:51px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #86ae47;
+}
+
+.recipeNames{
+	font-size:20px;
+	font-weight: bold;
+	color: #5da11d;
+}
+
+.background{
+	background-color: #dbdbdb;
+}
+
+.searchResult{
+	background-color:#ffffff;
+	margin-left: 15px;
+	margin-right: 15px;
+	border: 1px solid #5da11d;
+	padding-top: 10px;
+	padding-left: 15px;
+	border-radius:5px;
+	box-shadow: 4px 4px 4px #888888;
 }
