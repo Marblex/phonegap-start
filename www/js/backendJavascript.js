@@ -33,7 +33,7 @@ function onBodyLoad(){
 	// not all mobile devices support databases  if it does not, the following alert will display
 	// indicating the device will not be able to run this application
 		alert('Databases are not supported in this browser.');
-		  	return;
+		return;
 	}
 		 
 	// this line tries to open the database base locally on the device
@@ -49,8 +49,10 @@ function onBodyLoad(){
 		// easily from the table.
 		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+
 	},errorHandler,successCallBack);
-		 
+
+	populateDB();
 }
 
 

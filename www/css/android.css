@@ -3,8 +3,8 @@ body{
 	color: #222; /* Foreground color used for text */
 	font-family: helvetica;
 	font-size: 14px;
-	margin: 0; /* Amount of negative space around the outside of the body */
-	padding: 0; /* Amount of negative space around the inside of the body */
+	margin: 0;
+	padding: 0;
 	
 }
 
@@ -15,35 +15,30 @@ body{
 #header{
 	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(112,189,34,1)), color-stop(0%, rgba(83,148,22,1)), color-stop(49%, rgba(113,186,41,1)), color-stop(100%, rgba(112,189,34,1)));
 	background: -webkit-linear-gradient(left, rgba(112,189,34,1) 0%, rgba(83,148,22,1) 0%, rgba(113,186,41,1) 49%, rgba(112,189,34,1) 100%);
-	border-bottom: 1px solid #ffffff;
-	display: block;
+	border-bottom: 1px solid #5da11d;
 	font-size: 11px;
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
-
+	position: fixed;
+	width: 100%;
+	padding-bottom: 10px;
 }
 
 #header h1{ 
 	display: inline;
 	font-weight: 200;
 	color: #ffffff;
-}
-
-#header h2{
-	float: right;
-	padding-right: 29px;
-	color:transparent;
+	padding-right: 56px;
+	line-height: 35px;
 }
 
 #header button{
-	display: inline;
 	float: left;
     background: transparent;
     color: transparent;
-    border-radius: 5px;
     border: solid 0px;  
     font-size: 20px; 
-
+    margin-top: 5px;
 }
 
 #content, #sidebar{
@@ -60,11 +55,10 @@ body{
   border-right: none;
   border-bottom: 2px solid #5da11d;
    
-  box-sizing: border-box;
   outline: none;
    
-  font-size: 1.4em;
-  padding: 0.6em 0.6em;
+  font-size: 20px;
+  padding: 0.6em;
   width: 100%;
 }
 
@@ -159,7 +153,8 @@ body{
 }
 
 .background{
-	background-color: #dbdbdb;
+	background-color: #cae0b5;
+	padding-top: 70px;
 }
 
 .searchResult{
@@ -170,5 +165,5 @@ body{
 	padding-top: 10px;
 	padding-left: 15px;
 	border-radius:5px;
-	box-shadow: 4px 4px 4px #888888;
+	box-shadow: 2px 2px 2px #888888;
 }
