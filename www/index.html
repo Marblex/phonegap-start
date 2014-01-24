@@ -28,38 +28,41 @@
 		
 		<div id="header">
 			<button class="toggle-menu menu-left push-body box-shadow-menu">...</button>
-			<h1>
-				Find Recipe
-			</h1>
-		</div>
+				<h1>
+					Find Recipe
+				</h1>
+			</div>
 		<div class="background">
-			<div class="ingredients-form">
-				<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
-				<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
-				<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
-				<input type="text" placeholder="Ingredient 4" id="ingredient4"=></input>
-				<input type="text" placeholder="Ingredient 5" id="ingredient5"=></input>
-				<input type="text" placeholder="Ingredient 6" id="ingredient6"=></input>
-				<input type="text" placeholder="Ingredient 7" id="ingredient7"=></input>
-				<input type="text" placeholder="Ingredient 8" id="ingredient8"=></input>
-				<p>
-	             	<label>Number of additional ingredients</label>
-	             	<select id = "additionalIngredients">
-	               		<option value = "1">1</option>
-	               		<option value = "2">2</option>
-	               		<option value = "3">3</option>
-	               		<option value = "4">4</option>
-	            	</select>
-	          	</p>
-	    		<a href="#" class="findButton" id="findButton" onclick="find()">Find Recipes</a>
-	    		<br>
-	    		<br>
+			<div id="searchText" class="topBlock">
+				Enter your ingredients...
 			</div>
-
-			<span style="font-weight:bold;">Search Results:</span>
-			<br><br>
 			<div id="results">
+				<div class="ingredients-form">
+					<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
+					<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
+					<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+					<input type="text" placeholder="Ingredient 4" id="ingredient4"=></input>
+					<input type="text" placeholder="Ingredient 5" id="ingredient5"=></input>
+					<input type="text" placeholder="Ingredient 6" id="ingredient6"=></input>
+					<input type="text" placeholder="Ingredient 7" id="ingredient7"=></input>
+					<input type="text" placeholder="Ingredient 8" id="ingredient8"=></input>
+					<p>
+	             	<div class="dropDownMenu">
+	             		<label>Number of additional ingredients</label>
+		             	<select id = "additionalIngredients">
+		               		<option value = "1">1</option>
+		               		<option value = "2">2</option>
+		               		<option value = "3">3</option>
+		               		<option value = "4">4</option>
+		            	</select>
+		            </div>
+	          		</p>
+	    			<a href="#" class="findButton" id="findButton" onclick="find()">Find Recipes</a>
+	    			<br>
+	    			<br>
+				</div>
 			</div>
+			<br>
 		</div>
 
 	</body>

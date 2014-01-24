@@ -132,6 +132,7 @@ function find() {
 	    var extraIngredients = document.getElementById("additionalIngredients").value;
 
 	    div = document.getElementById("results");
+	    searchText = document.getElementById("searchText");
 	    div.innerHTML = "";
 
 		if (!window.openDatabase) {
@@ -231,7 +232,8 @@ function find() {
 function display(row, missingIngredients){
 	var id = row.RecipeID
 	
-	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div></br>'
+	searchText.innerHTML = "You found recipe(s)";
+	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div>'
 }
 
 

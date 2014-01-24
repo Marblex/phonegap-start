@@ -158,17 +158,38 @@ html{
 }
 
 .background{
-	background-color: #cae0b5;
-	padding-top: 70px;
+	background-color: #ddf7c4;
+	padding-top: 60px;
 }
+
 
 .searchResult{
 	background-color:#ffffff;
-	margin-left: 15px;
-	margin-right: 15px;
-	border: 1px solid #5da11d;
+	margin-left: 12px;
+	margin-right: 12px;
+	margin-bottom: 12px;
+	border: 1px dashed #5da11d;
 	padding-top: 10px;
 	padding-left: 15px;
-	border-radius:5px;
-	box-shadow: 2px 2px 2px #888888;
+	border-radius: 4px;
+	
+}
+
+.topBlock{
+	color: #3e8100;
+	font-weight: normal;
+	font-size: 18px;
+	padding-left: 12px;
+	padding-top: 10px;
+	padding-bottom: 15px;
+
+}
+
+.dropDownMenu{
+	color: #3e8100;
+	font-weight: normal;
+	font-size: 18px;
+	padding-left: 12px;
+	padding-top: 10px;
+	padding-bottom: 15px;
 }
