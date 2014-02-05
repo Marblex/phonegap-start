@@ -22,7 +22,7 @@ html{
 	font-size: 11px;
 	padding: 10px;
 	text-align: center;
-	position: fixed;
+	position: fixed !important;
 	width: 100%;
 	padding-bottom: 10px;
 	z-index: 2;
