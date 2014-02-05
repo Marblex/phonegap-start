@@ -13,6 +13,16 @@
 		<script type="text/javascript" src="js/recipeList.js"></script>
 		
 		<title>Find Recipe</title>
+
+		<script>
+		    $(document).ready(function(){
+		      	$('.moreOptions').click(function(e){
+		        	e.preventDefault();
+		        	$(this).closest('li').find('.content').slideToggle();
+		      	});
+		    });
+		</script>
+
 	</head>
 	<body onload="onBodyLoad()">
 		
@@ -28,43 +38,87 @@
 		
 		<div id="header">
 			<button class="toggle-menu menu-left push-body box-shadow-menu">...</button>
-				<h1>
-					Find Recipe
-				</h1>
-			</div>
-		<div class="background">
-			<div id="searchText" class="topBlock">
-				Enter your ingredients...
-			</div>
-			<div id="results">
-				<div class="ingredients-form">
-					<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
-					<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
-					<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
-					<input type="text" placeholder="Ingredient 4" id="ingredient4"=></input>
-					<input type="text" placeholder="Ingredient 5" id="ingredient5"=></input>
-					<input type="text" placeholder="Ingredient 6" id="ingredient6"=></input>
-					<input type="text" placeholder="Ingredient 7" id="ingredient7"=></input>
-					<input type="text" placeholder="Ingredient 8" id="ingredient8"=></input>
-					<p>
-	             	<div class="dropDownMenu">
-	             		<label>Number of additional ingredients</label>
-		             	<select id = "additionalIngredients">
-		               		<option value = "1">1</option>
-		               		<option value = "2">2</option>
-		               		<option value = "3">3</option>
-		               		<option value = "4">4</option>
-		            	</select>
-		            </div>
-	          		</p>
-	    			<a href="#" class="findButton" id="findButton" onclick="find()">Find Recipes</a>
-	    			<br>
-	    			<br>
-				</div>
-			</div>
-			<br>
+			<h1>
+				Find Recipe
+			</h1>
 		</div>
+		<div class="background" id = 'background'>
+			<div id = "additionalOptions">
+				<li>
+					<a href='#' class='moreOptions'>Modify search...</a>
+				    <div class='content'>
+						<div id="search-form">
 
+							<div id="searchText" class="additionalHeading">
+								Enter your ingredients...
+							</div>
+
+							<div class="ingredients-form">
+								<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
+								<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
+								<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+								<input type="text" placeholder="Ingredient 4" id="ingredient4"=></input>
+								<input type="text" placeholder="Ingredient 5" id="ingredient5"=></input>
+								<input type="text" placeholder="Ingredient 6" id="ingredient6"=></input>
+								<input type="text" placeholder="Ingredient 7" id="ingredient7"=></input>
+								<input type="text" placeholder="Ingredient 8" id="ingredient8"=></input>
+							</div>
+
+							<br>
+
+						    <div class= "additionalHeading">
+						    	Number of additional ingredients
+						    </div>
+						        
+							<div class="form-field-container">
+								<div id="numExtraIngs" class="form-field-buttonset">
+									<input type="radio" name="addIngs" id="numExtraIngsOne" value="One">
+									<label for="numExtraIngsOne">One</label>
+									<input type="radio" name="addIngs" id="numExtraIngsTwo" value="Two" checked="checked">
+									<label for="numExtraIngsTwo">Two</label>
+									<input type="radio" name="addIngs" id="numExtraIngsThree" value="Three">
+									<label for="numExtraIngsThree">Three</label>
+									<input type="radio" name="addIngs" id="numExtraIngsFour" value="Four">
+									<label for="numExtraIngsFour">Four</label>
+								</div>
+							</div>
+							
+							<div class= "additionalHeading">
+						    	Show the following recipe type
+						    </div>
+
+							<div class="form-field-container">
+								<div id="numExtraIngs" class="form-field-buttonset">
+									<input type="radio" name="adType" id="allRecs" value="allRecs" checked="checked">
+									<label for="allRecs">All</label>
+									<input type="radio" name="adType" id="vegetarian" value="vegetarian">
+									<label for="vegetarian">Vegetarian</label>
+									<input type="radio" name="adType" id="vegan" value="vegan">
+									<label for="vegan">Vegan</label>
+									<input type="radio" name="adType" id="glutenFree" value="glutenFree">
+									<label for="glutenFree">Gluten Free</label>
+								</div>
+							</div>
+
+							<br>
+						  	<a href="#" class="findButton" id="findButton" onclick="find()">FIND RECIPES</a>
+						  	<br>
+							
+						</div>
+					</div>
+				</li> 	 	  		
+			</div>
+
+			<br>
+			
+			<div id = 'resultsText' class = 'resultsHeading'>
+			</div>
+
+			<div id = 'results'>
+			<br>
+			</div>
+			
+		</div>
 	</body>
 </html>
 

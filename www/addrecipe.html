@@ -10,6 +10,7 @@
 		<script src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
 		<script type="text/javascript" src="js/phonegap.js"></script>
+		<script type="text/javascript" src="js/recipeList.js"></script>
 
 		<title>Add Recipe</title>
 	</head>
@@ -32,20 +33,53 @@
 			</h1>
 		</div>
 
-		<div class="ingredients-form" style="width:356px">
+		<div class="background">
+			<div id="searchText" class="topBlock">
+				Enter your ingredients...
+			</div>
 
-			<input id="txRecipeName" type="text" placeholder="Recipe Name">
-			<input id="txIngredient1" type="text" placeholder="Ingredient 1">
-			<input id="txIngredient2" type="text" placeholder="Ingredient 2">
-			<input id="txIngredient3" type="text" placeholder="Ingredient 3">
-			<input type="button" value="Add record" onClick="AddValueToDB()">
-			<input type="button" value="Refresh" onClick="ListDBValues()">
-			<input type="button" value="Reset Database" onClick="DropDB()">
-			<br>
-			<br>
-			<span style="font-weight:bold;">Currently in All Recipes DB:</span>
-			<span id="lbRecipes"></span>
+			<div class="ingredients-form">
+
+				<input id="newRecipeName" type="text" placeholder="Recipe Name">
+				<input id="newIngredient1" type="text" placeholder="Ingredient 1">
+				<input id="newIngredient2" type="text" placeholder="Ingredient 2">
+				<input id="newIngredient3" type="text" placeholder="Ingredient 3">
+				<br><br>
+
+				<div class='content'>
+
+					<div class= "additionalHeading">
+						Recipe Type
+					</div>
+
+					<br>
+
+					<div class="form-field-container">
+						<div id="numExtraIngs" class="form-field-buttonset">
+							<input type="radio" name="adType" id="newNone" value="none" checked="checked">
+							<label for="newNone">None</label>
+							<input type="radio" name="adType" id="newVegetarian" value="vegetarian">
+							<label for="newVegetarian">Vegetarian</label>
+							<input type="radio" name="adType" id="newVegan" value="vegan">
+							<label for="newVegan">Vegan</label>
+							<input type="radio" name="adType" id="newGlutenFree" value="glutenFree">
+							<label for="newGlutenFree">Gluten Free</label>
+						</div>
+					</div>
+
+				</div>
+
+				<a href="#" class="findButton" id="findButton" onclick="AddValueToDB()">ADD RECIPE</a>
+				<br>
+				<br>
+				<input type="button" value="Refresh" onClick="ListDBValues()">
+				<input type="button" value="Reset Database" onClick="DropDB()">
+				<br>
+				<br>
+				<span style="font-weight:bold;">Currently in All Recipes DB:</span>
+				<span id="lbRecipes"></span>
+			</div>
+
 		</div>
-
 	</body>
 </html>

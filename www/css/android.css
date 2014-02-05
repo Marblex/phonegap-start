@@ -1,5 +1,5 @@
 body{
-	background-color: #ffffff; /* Background color */
+	background-color: #ddf7c4; /* Background color */
 	color: #222; /* Foreground color used for text */
 	font-family: helvetica;
 	font-size: 14px;
@@ -25,6 +25,7 @@ html{
 	position: fixed;
 	width: 100%;
 	padding-bottom: 10px;
+	z-index: 2;
 }
 
 #header h1{ 
@@ -61,10 +62,23 @@ html{
   outline: none;
    
   font-size: 20px;
-  padding-left: 15px;
   padding-top: 15px;
   padding-bottom: 15px;
+  padding-left: 15px;
   width: 100%;
+}
+
+.additionalHeading{
+	color: #3e8100;
+	padding-top: -10px;
+	font-size: 18px;
+}
+
+.resultsHeading{
+	color: #3e8100;
+	padding-left: 12px;
+	padding-bottom: 20px;
+	font-size: 18px;
 }
 
 .box-shadow-menu {
@@ -85,35 +99,42 @@ html{
 }
 
 .findButton {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #0d78b6), color-stop(1, #0aa5ff) );
-	background:-moz-linear-gradient( center top, #0d78b6 5%, #0aa5ff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0d78b6', endColorstr='#0aa5ff');
-	background-color:#0d78b6;
-	-webkit-border-top-left-radius:20px;
-	-moz-border-radius-topleft:20px;
-	border-top-left-radius:20px;
-	-webkit-border-top-right-radius:20px;
-	-moz-border-radius-topright:20px;
-	border-top-right-radius:20px;
-	-webkit-border-bottom-right-radius:20px;
-	-moz-border-radius-bottomright:20px;
-	border-bottom-right-radius:20px;
-	-webkit-border-bottom-left-radius:20px;
-	-moz-border-radius-bottomleft:20px;
-	border-bottom-left-radius:20px;
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(112,189,34,1)), color-stop(0%, rgba(83,148,22,1)), color-stop(49%, rgba(113,186,41,1)), color-stop(100%, rgba(112,189,34,1)));
+	background: -webkit-linear-gradient(left, rgba(112,189,34,1) 0%, rgba(83,148,22,1) 0%, rgba(113,186,41,1) 49%, rgba(112,189,34,1) 100%);
+	-moz-box-shadow: 0px 1px 0px 0px #c1ed9c;
+	-webkit-box-shadow: 0px 1px 0px 0px #c1ed9c;
+	box-shadow: 0px 1px 0px 0px #c1ed9c;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5da11d', endColorstr='#8cb82b');
+	background-color:#5da11d;
+	-webkit-border-top-left-radius:6px;
+	-moz-border-radius-topleft:6px;
+	border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+	-moz-border-radius-topright:6px;
+	border-top-right-radius:6px;
+	-webkit-border-bottom-right-radius:6px;
+	-moz-border-radius-bottomright:6px;
+	border-bottom-right-radius:6px;
+	-webkit-border-bottom-left-radius:6px;
+	-moz-border-radius-bottomleft:6px;
+	border-bottom-left-radius:6px;
 	text-indent:0;
-	border:1px solid #1470cc;
+	border:1px solid #5da11d;
 	display:inline-block;
 	color:#ffffff;
 	font-family:Arial;
-	font-size:15px;
+	font-size:17px;
+	font-weight:bold;
 	font-style:normal;
-	height:65px;
-	line-height:65px;
-	width:131px;
+	height:51px;
+	line-height:51px;
+	width:156px;
 	text-decoration:none;
 	text-align:center;
+	text-shadow:1px 1px 0px #689324;
+	margin-bottom: 30px;
 }
+
 
 .addButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
@@ -158,8 +179,7 @@ html{
 }
 
 .background{
-	background-color: #ddf7c4;
-	padding-top: 60px;
+	padding-top: 15px;
 }
 
 
@@ -171,25 +191,81 @@ html{
 	border: 1px dashed #5da11d;
 	padding-top: 10px;
 	padding-left: 15px;
-	border-radius: 4px;
-	
+	border-radius: 4px;	
 }
 
-.topBlock{
-	color: #3e8100;
-	font-weight: normal;
-	font-size: 18px;
+
+
+
+#additionalOptions{
+	background-color:#5da11d;
+	font-family:Arial;
+	font-size:18px;
+	text-decoration:none;
+	width: 100%;
+	padding-bottom: 1px;
+	line-height: 40px;
+	padding-right: 100px;
+}
+
+.moreOptions{
+	color: #ffffff;
+	text-decoration: none;
 	padding-left: 12px;
-	padding-top: 10px;
-	padding-bottom: 15px;
-
+	line-height: 10px;
 }
 
-.dropDownMenu{
-	color: #3e8100;
-	font-weight: normal;
-	font-size: 18px;
+.content{
+	background-color: #ddf7c4;
 	padding-left: 12px;
-	padding-top: 10px;
-	padding-bottom: 15px;
+	padding-top: 20px;
+	padding-bottom: 0px;
+	font-size: 18px;
 }
+
+#radioButtons{
+	color: #5da11d;
+}
+
+li{
+	 list-style-type: none;
+	 position: relative;
+	 overflow: hidden; 
+}
+
+.form-field-buttonset input:checked + label,
+.form-field-checkbutton:checked + label {
+    background-color: #5da11d;
+    color: #ffffff;
+}
+
+
+
+.form-field-buttonset input[type=radio],
+.form-field-checkbutton {
+    display: none;
+}
+
+
+
+.form-field-buttonset label,
+.form-field-checkbutton + label {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 13px;
+    line-height: 13px;
+    font-weight: 600;
+    padding: 10px 26px;
+    border: 1px solid #5da11d;
+    cursor: pointer;
+    margin: -3px;
+
+}
+
+.form-field-container{
+	padding-left: 5px;
+	padding-bottom: 20px;
+	color: #5da11d;
+}
+
+

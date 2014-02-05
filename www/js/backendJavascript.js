@@ -4,7 +4,6 @@ jQuery(document).ready(function($) {
 	$('.toggle-menu').jPushMenu();
 });
 
-
 // global variables
 var db;
 var shortName = 'WebSqlDB';
@@ -47,8 +46,8 @@ function onBodyLoad(){
 		// this line actually creates the table User if it does not exist and sets up the three columns and their types
 		// note the UserId column is an auto incrementing column which is useful if you want to pull back distinct rows
 		// easily from the table.
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, RecipeType TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyRecipeType TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 
 	},errorHandler,successCallBack);
 
@@ -59,20 +58,12 @@ function onBodyLoad(){
 function DropDB(){
 	db.transaction(function(tx){
 		tx.executeSql( 'DROP TABLE AllRecipes',nullHandler,nullHandler);
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, RecipeType TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 	},errorHandler,successCallBack);
 
 	ListDBValues();
 }
 
-function MyDropDB(){
-	db.transaction(function(tx){
-		tx.executeSql( 'DROP TABLE MyRecipes',nullHandler,nullHandler);
-		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
-	},errorHandler,successCallBack);
-
-	ListDBValues();
-}
 		 
 // list the values in the database to the screen using jquery to update the #lbUsers element
 function ListDBValues() {
@@ -92,7 +83,7 @@ function ListDBValues() {
 			if (result != null && result.rows != null) {
 		        for (var i = 0; i < result.rows.length; i++) {
 		          	var row = result.rows.item(i);
-		          	$('#lbRecipes').append('<br>' + row.RecipeName+ ' ' + row.Ingredient1+ ' ' + row.Ingredient2+ ' ' + row.Ingredient3+ ' ');
+		          	$('#lbRecipes').append('<br>' + row.RecipeName + ' ' + row.RecipeType + ' ' + row.Ingredient1 + ' ' + row.Ingredient2 + ' ' + row.Ingredient3 + ' ');
 		        }
 			}
 		},errorHandler);
@@ -108,10 +99,28 @@ function AddValueToDB() {
    		alert('Databases are not supported in this browser.');
    	return;
  	}
-		 	
+	
+ 	var newRecipeName = document.getElementById("newRecipeName").value;
+ 	var newIngredient1 = document.getElementById("newIngredient1").value;
+ 	var newIngredient2 = document.getElementById("newIngredient2").value;
+ 	var newIngredient3 = document.getElementById("newIngredient3").value;
+
+ 	if (document.getElementById('newNone').checked){
+		newRecipeType = 'none';
+	}
+	if (document.getElementById('newVegetarian').checked){
+		newRecipeType = 'vegetarian';
+	}
+	if (document.getElementById('newVegan').checked){
+		userRecipeType = 'vegan';
+	}
+	if (document.getElementById('newGlutenFree').checked){
+		userRecipeType = 'glutenFree';
+	}
+
 	// this is the section that actually inserts the values into the User table
 	db.transaction(function(transaction) {
-		transaction.executeSql('INSERT INTO AllRecipes(RecipeName, Ingredient1, Ingredient2, Ingredient3) VALUES (?,?,?,?)',[$('#txRecipeName').val(), $('#txIngredient1').val(), $('#txIngredient2').val(), $('#txIngredient3').val()],nullHandler,errorHandler);
+		transaction.executeSql('INSERT INTO AllRecipes(RecipeName, RecipeType, Ingredient1, Ingredient2, Ingredient3) VALUES (?,?,?,?,?)',[newRecipeName,newRecipeType,newIngredient1,newIngredient2,newIngredient3],nullHandler,errorHandler);
 	});
 
 	// this calls the function that will show what is in the User table in the database
@@ -129,11 +138,38 @@ function find() {
 	    var userIngredient2 = document.getElementById("ingredient2").value;
 	    var userIngredient3 = document.getElementById("ingredient3").value;
 
-	    var extraIngredients = document.getElementById("additionalIngredients").value;
+		if (document.getElementById('numExtraIngsOne').checked) {
+  			extraIngredients = 1;
+		}
+		if (document.getElementById('numExtraIngsTwo').checked) {
+  			extraIngredients = 2;
+		}
+		if (document.getElementById('numExtraIngsThree').checked) {
+  			extraIngredients = 3;
+		}
+		if (document.getElementById('numExtraIngsFour').checked) {
+  			extraIngredients = 4;
+		}
+
+		var userRecType;
+
+		if (document.getElementById('allRecs').checked){
+			userRecType = 'all';
+		}
+		if (document.getElementById('vegetarian').checked){
+			userRecType = 'vegetarian';
+		}
+		if (document.getElementById('vegan').checked){
+			userRecType = 'vegan';
+		}
+		if (document.getElementById('glutenFree').checked){
+			userRecType = 'glutenFree';
+		}
 
 	    div = document.getElementById("results");
-	    searchText = document.getElementById("searchText");
 	    div.innerHTML = "";
+
+	    document.getElementById("background").style.padding="70px 0px 0px 0px";
 
 		if (!window.openDatabase) {
 	  		alert('Databases are not supported in this browser.');
@@ -156,7 +192,7 @@ function find() {
 	          			var ingredient1 = row.Ingredient1
 				   	 	var ingredient2 = row.Ingredient2
 				  		var ingredient3 = row.Ingredient3
-					
+				  		var recType = row.RecipeType
 
 						var match = 0;
 
@@ -199,41 +235,45 @@ function find() {
 							numOfIngredients ++;
 						} 
 
+						if(userRecType == 'all' || userRecType == recType || recType == 'vegan' && userRecType == 'vegetarian'){
 
-						var oneIngredientNeeded = numOfIngredients - 1;     
-						var twoIngredientNeeded = numOfIngredients - 2;     
-
-
-						if(match == numOfIngredients){
-							missingIngredients = "none";
-							display(row, missingIngredients);
-
-						}
-						if(extraIngredients > 0){
-							if(match == oneIngredientNeeded){
+							if(match == numOfIngredients){
+								missingIngredients = "none";
 								display(row, missingIngredients);
+
+							}
+							if(extraIngredients > 0){
+								if(match == numOfIngredients - 1){
+									display(row, missingIngredients);
+								}
+							}
+							if (extraIngredients > 1){
+								if(match == numOfIngredients - 2){
+									display(row, missingIngredients);
+								}
 							}
 						}
-						if (extraIngredients > 1){
-							if(match == twoIngredientNeeded){
-								display(row, missingIngredients);
-							}
-						}
+
+
 	        		}
 	      		}
 	     	},errorHandler);
 	 	},errorHandler,nullHandler);
 	 
-	 	return;
+	 	resultsText.innerHTML = "You found no recipes";
 	 
+}
+
+function sort(){
+
 }
 
 
 function display(row, missingIngredients){
 	var id = row.RecipeID
 	
-	searchText.innerHTML = "You found recipe(s)";
-	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div>'
+	resultsText.innerHTML = "You found recipe(s)";
+	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="findButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div>'
 }
 
 
@@ -248,12 +288,13 @@ function addToMyRecipes(id){
 		          	if(row.RecipeID == id){
 		          		var MyID = row.RecipeID
           				var newName = row.RecipeName
+          				var newType = row.RecipeType
           				var ing1 = row.Ingredient1
 			   	 		var ing2 = row.Ingredient2
 			  			var ing3 = row.Ingredient3
 
 			  			db.transaction(function(transaction) {
-					  		transaction.executeSql('INSERT INTO MyRecipes(MyRecipeName, MyIngredient1, MyIngredient2, MyIngredient3) VALUES (?,?,?,?)',[newName, ing1, ing2, ing3]);
+					  		transaction.executeSql('INSERT INTO MyRecipes(MyRecipeName, MyRecipeType, MyIngredient1, MyIngredient2, MyIngredient3) VALUES (?,?,?,?,?)',[newName, newType, ing1, ing2, ing3]);
 						});
 
 			  			alert("Added to My Recipes");
