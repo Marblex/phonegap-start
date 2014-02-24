@@ -6,7 +6,9 @@
 		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/android.css" />
 
-		<script src="js/jquery-1.9.1.min.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
 		<script type="text/javascript" src="js/phonegap.js"></script>
@@ -15,12 +17,26 @@
 		<title>Find Recipe</title>
 
 		<script>
+
 		    $(document).ready(function(){
 		      	$('.moreOptions').click(function(e){
 		        	e.preventDefault();
 		        	$(this).closest('li').find('.content').slideToggle();
 		      	});
 		    });
+
+
+			$(document).ready(function () {
+			    $("input[name=sortResults]:radio").change(function () {
+			        if ($("#sort1").attr("checked")) {
+			            sortResults();
+			        }
+			        if ($("#sort2").attr("checked")) {
+			            alert('Sort by Nutritional value');
+			        }   
+			    })
+			});
+
 		</script>
 
 	</head>
@@ -51,23 +67,23 @@
 
 							<div id="searchText" class="additionalHeading">
 								Enter your ingredients...
+								<div class = 'addIng'>
+									<a href="#" class="addButton" onclick="addIngredient()">+</a>
+								</div>
 							</div>
 
-							<div class="ingredients-form">
+							<div id='ingredientsForm' class="ingredients-form">
+
 								<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
 								<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
 								<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
-								<input type="text" placeholder="Ingredient 4" id="ingredient4"=></input>
-								<input type="text" placeholder="Ingredient 5" id="ingredient5"=></input>
-								<input type="text" placeholder="Ingredient 6" id="ingredient6"=></input>
-								<input type="text" placeholder="Ingredient 7" id="ingredient7"=></input>
-								<input type="text" placeholder="Ingredient 8" id="ingredient8"=></input>
+								
 							</div>
 
 							<br>
 
-						    <div class= "additionalHeading">
-						    	Number of additional ingredients
+						    <div class="additionalHeading">
+						    	Maximum additional ingredients
 						    </div>
 						        
 							<div class="form-field-container">
@@ -100,7 +116,6 @@
 								</div>
 							</div>
 
-							<br>
 						  	<a href="#" class="findButton" id="findButton" onclick="find()">FIND RECIPES</a>
 						  	<br>
 							
@@ -110,14 +125,33 @@
 			</div>
 
 			<br>
-			
+
+			<div id = 'hidden' class = 'hidden'>
+				<div id = 'content'>
+					<div class= "additionalHeading">
+				    	Sort By
+				    </div>
+				    
+				    <br>
+
+					<div class="form-field-container">
+						<div id="sort" class="form-field-buttonset">
+							<input type="radio" name="sortResults" id="sort1">
+							<label for="sort1">Additional ingredients required</label>
+							<input type="radio" name="sortResults" id="sort2">
+							<label for="sort2">Healthiest</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
 			<div id = 'resultsText' class = 'resultsHeading'>
 			</div>
 
 			<div id = 'results'>
 			<br>
 			</div>
-			
+
 		</div>
 	</body>
 </html>

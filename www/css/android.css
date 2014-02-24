@@ -1,7 +1,7 @@
 body{
-	background-color: #ddf7c4; /* Background color */
+	background-color: #f7f7f7; /* Background color */
 	color: #222; /* Foreground color used for text */
-	font-family: helvetica;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	margin: 0;
 	padding: 0;
@@ -46,6 +46,11 @@ html{
     margin-top: 5px;
 }
 
+.addIng{
+	display: inline;
+	float: right;
+}
+
 #content, #sidebar{
 	padding: 10px;
 }
@@ -54,25 +59,56 @@ html{
 	display: none;
 }
 
-.ingredients-form input[type="text"]{
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 2px solid #5da11d;
-   
-  outline: none;
-   
-  font-size: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 15px;
-  width: 100%;
+.ingredients-form input{   
+	font-size: 18px;
+	padding: 10px;
+
+	margin-bottom: 8px;
+	  
+	width:100%;
+	border: 1px solid #d4d4d4;
+	border-radius: 3px;
+
+	line-height: 1.5em;
+	box-shadow: inset 0px 1px 1px #ececec;
+}
+
+.ingredients-form{
+	padding-top: 20px;
+	padding-right: 22px;
 }
 
 .additionalHeading{
-	color: #3e8100;
-	padding-top: -10px;
-	font-size: 18px;
+	display: block;
+	font-size: .875em;
+	margin-bottom: 10px;
+	position: relative;
+	text-align: center;
+	width: 100%;
+	z-index: 1;
+	font-color: ;
+}
+
+.additionalHeading:before{
+	width: 250px;
+	height: 10px;
+	background-color: #f7f7f7;
+	content: '';
+	margin: -5px 0 0 -125px;
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	z-index: -1;
+}
+
+.additionalHeading:after{
+	border-bottom: 1px solid #e1e1e1;
+	content: '';
+	display: block;
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	z-index: -2;
 }
 
 .resultsHeading{
@@ -123,7 +159,7 @@ html{
 	border:1px solid #5da11d;
 	display:inline-block;
 	color:#ffffff;
-	font-family:Arial;
+	font-family: 'Roboto', sans-serif;
 	font-size:17px;
 	font-weight:bold;
 	font-style:normal;
@@ -134,43 +170,24 @@ html{
 	text-align:center;
 	text-shadow:1px 1px 0px #689324;
 	margin-bottom: 30px;
+	margin-top: 20px;
 }
 
 
 .addButton {
-	-moz-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
-	-webkit-box-shadow:inset 0px 1px 0px 0px #d9fbbe;
-	box-shadow:inset 0px 1px 0px 0px #d9fbbe;
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
-	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
-	background-color:#b8e356;
-	-webkit-border-top-left-radius:11px;
-	-moz-border-radius-topleft:11px;
-	border-top-left-radius:11px;
-	-webkit-border-top-right-radius:11px;
-	-moz-border-radius-topright:11px;
-	border-top-right-radius:11px;
-	-webkit-border-bottom-right-radius:11px;
-	-moz-border-radius-bottomright:11px;
-	border-bottom-right-radius:11px;
-	-webkit-border-bottom-left-radius:11px;
-	-moz-border-radius-bottomleft:11px;
-	border-bottom-left-radius:11px;
-	text-indent:0;
-	border:1px solid #83c41a;
+	background-color:#71bd24;
+	border-radius:11px;
+	border:1px solid #5da11d;
 	display:inline-block;
 	color:#ffffff;
-	font-family:Arial;
 	font-size:34px;
 	font-weight:bold;
 	font-style:normal;
 	height:37px;
-	line-height:37px;
+	line-height:33px;
 	width:51px;
 	text-decoration:none;
 	text-align:center;
-	text-shadow:1px 1px 0px #86ae47;
 }
 
 .recipeNames{
@@ -196,11 +213,8 @@ html{
 }
 
 
-
-
 #additionalOptions{
-	background-color:#5da11d;
-	font-family:Arial;
+	background-color:#3e8100;
 	font-size:18px;
 	text-decoration:none;
 	width: 100%;
@@ -217,11 +231,13 @@ html{
 }
 
 .content{
-	background-color: #ddf7c4;
+	background-color: #f7f7f7;
 	padding-left: 12px;
 	padding-top: 20px;
 	padding-bottom: 0px;
+	padding-right: 12px;
 	font-size: 18px;
+	color: #88898c;
 }
 
 #radioButtons{
@@ -236,7 +252,7 @@ li{
 
 .form-field-buttonset input:checked + label,
 .form-field-checkbutton:checked + label {
-    background-color: #5da11d;
+    background-color: #71bd24;
     color: #ffffff;
 }
 
@@ -256,17 +272,21 @@ li{
     font-size: 13px;
     line-height: 13px;
     font-weight: 600;
-    padding: 10px 26px;
-    border: 1px solid #5da11d;
+    padding: 10px 15px;
+    border: 1px solid #71bd24;
     cursor: pointer;
-    margin: -3px;
+    margin: -2.5px;
 
 }
 
 .form-field-container{
 	padding-left: 5px;
-	padding-bottom: 20px;
-	color: #5da11d;
+	padding-bottom: 40px;
+	color: #71bd24;
+}
+
+#hidden{
+	display: none;
 }
 
 

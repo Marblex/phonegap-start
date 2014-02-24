@@ -4,6 +4,24 @@ jQuery(document).ready(function($) {
 	$('.toggle-menu').jPushMenu();
 });
 
+function addIngredient(){
+	var ingsFormDiv = document.getElementById("ingredientsForm");
+
+	if(numIngs < 8){
+
+		ingID = numIngs + 1;
+
+		ingsFormDiv.innerHTML = ingsFormDiv.innerHTML + '<input type="text" placeholder="Ingredient ' + ingID + '" id="ingredient' + ingID + '"=></input>';
+
+		numIngs ++;
+	}
+	else{
+		alert('You can only enter up to 8 ingredients.');
+	}
+
+}
+
+
 // global variables
 var db;
 var shortName = 'WebSqlDB';
@@ -24,9 +42,16 @@ function successCallBack() {
 }
 		 
 function nullHandler(){};
+
+function pageLoad(){
+	onBodyLoad();
+	showMyRecipes();
+}
 		 
 // called when the application loads
 function onBodyLoad(){
+
+	numIngs = 3;
 		 
 	if (!window.openDatabase) {
 	// not all mobile devices support databases  if it does not, the following alert will display
@@ -48,10 +73,12 @@ function onBodyLoad(){
 		// easily from the table.
 		tx.executeSql( 'CREATE TABLE IF NOT EXISTS AllRecipes(RecipeID INTEGER PRIMARY KEY AUTOINCREMENT, RecipeName TEXT NOT NULL, RecipeType TEXT NOT NULL, Ingredient1 TEXT NOT NULL, Ingredient2 TEXT NOT NULL, Ingredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
 		tx.executeSql( 'CREATE TABLE IF NOT EXISTS MyRecipes(MyRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, MyRecipeName TEXT NOT NULL, MyRecipeType TEXT NOT NULL, MyIngredient1 TEXT NOT NULL, MyIngredient2 TEXT NOT NULL, MyIngredient3 TEXT NOT NULL)',[],nullHandler,errorHandler);
+		tx.executeSql( 'CREATE TABLE IF NOT EXISTS Results(ResultsRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, ResultsRecipeName TEXT NOT NULL, ResultsRecipeType TEXT NOT NULL, ResultsIngredient1 TEXT NOT NULL, ResultsIngredient2 TEXT NOT NULL, ResultsIngredient3 TEXT NOT NULL, ResultsMissingIngredients,NumMissingIngredients)',[],nullHandler,errorHandler);
 
 	},errorHandler,successCallBack);
 
 	populateDB();
+ 
 }
 
 
@@ -134,177 +161,218 @@ function AddValueToDB() {
 
 function find() {
 
-		var userIngredient1 = document.getElementById("ingredient1").value;
-	    var userIngredient2 = document.getElementById("ingredient2").value;
-	    var userIngredient3 = document.getElementById("ingredient3").value;
+	var userIngredient1 = document.getElementById("ingredient1").value;
+    var userIngredient2 = document.getElementById("ingredient2").value;
+    var userIngredient3 = document.getElementById("ingredient3").value;
 
-		if (document.getElementById('numExtraIngsOne').checked) {
-  			extraIngredients = 1;
-		}
-		if (document.getElementById('numExtraIngsTwo').checked) {
-  			extraIngredients = 2;
-		}
-		if (document.getElementById('numExtraIngsThree').checked) {
-  			extraIngredients = 3;
-		}
-		if (document.getElementById('numExtraIngsFour').checked) {
-  			extraIngredients = 4;
-		}
+	if (document.getElementById('numExtraIngsOne').checked) {
+		extraIngredients = 1;
+	}
+	if (document.getElementById('numExtraIngsTwo').checked) {
+		extraIngredients = 2;
+	}
+	if (document.getElementById('numExtraIngsThree').checked) {
+		extraIngredients = 3;
+	}
+	if (document.getElementById('numExtraIngsFour').checked) {
+		extraIngredients = 4;
+	}
 
-		var userRecType;
+	var userRecType;
 
-		if (document.getElementById('allRecs').checked){
-			userRecType = 'all';
-		}
-		if (document.getElementById('vegetarian').checked){
-			userRecType = 'vegetarian';
-		}
-		if (document.getElementById('vegan').checked){
-			userRecType = 'vegan';
-		}
-		if (document.getElementById('glutenFree').checked){
-			userRecType = 'glutenFree';
-		}
+	if (document.getElementById('allRecs').checked){
+		userRecType = 'all';
+	}
+	if (document.getElementById('vegetarian').checked){
+		userRecType = 'vegetarian';
+	}
+	if (document.getElementById('vegan').checked){
+		userRecType = 'vegan';
+	}
+	if (document.getElementById('glutenFree').checked){
+		userRecType = 'glutenFree';
+	}
 
-	    div = document.getElementById("results");
-	    div.innerHTML = "";
+    div = document.getElementById("results");
+    div.innerHTML = ("");
+    
 
-	    document.getElementById("background").style.padding="70px 0px 0px 0px";
+    document.getElementById("background").style.padding="70px 0px 0px 0px";
 
-		if (!window.openDatabase) {
-	  		alert('Databases are not supported in this browser.');
-	  		return;
-	 	}
-		 
-		// this line clears out any content in the #lbUsers element on the page so that the next few lines will show updated
-		// content and not just keep repeating lines
-	 	$('#lbRecipes').html('');
-	 
-		// this next section will select all the content from the User table and then go through it row by row
-		// appending the UserId  FirstName  LastName to the  #lbUsers element on the page
-	 	db.transaction(function(transaction) {
-	   		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
-	      		if (result != null && result.rows != null) {
-	        		for (var i = 0; i < result.rows.length; i++) {
-	          			var row = result.rows.item(i);
-	          			
-	          			var recipeName = row.RecipeName
-	          			var ingredient1 = row.Ingredient1
-				   	 	var ingredient2 = row.Ingredient2
-				  		var ingredient3 = row.Ingredient3
-				  		var recType = row.RecipeType
+	$(".content").hide();
 
-						var match = 0;
+	if (!window.openDatabase) {
+  		alert('Databases are not supported in this browser.');
+  		return;
+ 	}
 
-						var missingIngredients = [];
+ 	db.transaction(function(tx){
+		tx.executeSql( 'DELETE FROM Results',nullHandler,nullHandler);
+	},errorHandler,successCallBack);
+
+	// this line clears out any content in the #lbUsers element on the page so that the next few lines will show updated
+	// content and not just keep repeating lines
+ 	$('#lbRecipes').html('');
+ 
+	// this next section will select all the content from the User table and then go through it row by row
+	// appending the UserId  FirstName  LastName to the  #lbUsers element on the page
+ 	db.transaction(function(transaction) {
+ 		//transaction.executeSql('DELETE FROM Results');
+   		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
+      		if (result != null && result.rows != null) {
+        		for (var i = 0; i < result.rows.length; i++) {
+          			var row = result.rows.item(i);
+          			
+          			var recipeName = row.RecipeName
+          			var ingredient1 = row.Ingredient1
+			   	 	var ingredient2 = row.Ingredient2
+			  		var ingredient3 = row.Ingredient3
+			  		var recType = row.RecipeType
+
+					var match = 0;
+
+					var missingIngredients = [];
 
 
-						if(ingredient1 == userIngredient1 || ingredient1 == userIngredient2 || ingredient1 == userIngredient3){
-							match ++;
+					if(ingredient1 == userIngredient1 || ingredient1 == userIngredient2 || ingredient1 == userIngredient3){
+						match ++;
+					}
+					else{
+						missingIngredients.push(row.Ingredient1);
+					} 
+
+					if(ingredient2 == userIngredient1 || ingredient2 == userIngredient2 || ingredient2 == userIngredient3){
+						match ++;
+					}
+					else{
+						missingIngredients.push(row.Ingredient2);
+					} 
+
+					if(ingredient3 == userIngredient1 || ingredient3 == userIngredient2 || ingredient3 == userIngredient3){
+						match ++;
+					}
+					else{
+						missingIngredients.push(row.Ingredient3);
+					} 
+
+					var numMissingIngs = missingIngredients.length;
+
+					var numOfIngredients = 0;
+
+					if(ingredient1 != null){
+						numOfIngredients ++;
+					} 
+
+					if(ingredient2 != null){
+						numOfIngredients ++;
+					} 
+
+					if(ingredient3 != null){
+						numOfIngredients ++;
+					} 
+
+					if(userRecType == 'all' || userRecType == recType || recType == 'vegan' && userRecType == 'vegetarian'){
+
+						if(match == numOfIngredients){
+							missingIngredients = "none";
+							addToResultsDB(row, missingIngredients, numMissingIngs);
 						}
-						else{
-							missingIngredients.push(row.Ingredient1);
-						} 
 
-						if(ingredient2 == userIngredient1 || ingredient2 == userIngredient2 || ingredient2 == userIngredient3){
-							match ++;
-						}
-						else{
-							missingIngredients.push(row.Ingredient2);
-						} 
-
-						if(ingredient3 == userIngredient1 || ingredient3 == userIngredient2 || ingredient3 == userIngredient3){
-							match ++;
-						}
-						else{
-							missingIngredients.push(row.Ingredient3);
-						} 
-
-
-						var numOfIngredients = 0;
-
-						if(ingredient1 != null){
-							numOfIngredients ++;
-						} 
-
-						if(ingredient2 != null){
-							numOfIngredients ++;
-						} 
-
-						if(ingredient3 != null){
-							numOfIngredients ++;
-						} 
-
-						if(userRecType == 'all' || userRecType == recType || recType == 'vegan' && userRecType == 'vegetarian'){
-
-							if(match == numOfIngredients){
-								missingIngredients = "none";
-								display(row, missingIngredients);
-
+						if(extraIngredients > 0){
+							if(match == numOfIngredients - 1){
+								addToResultsDB(row, missingIngredients, numMissingIngs);
 							}
-							if(extraIngredients > 0){
-								if(match == numOfIngredients - 1){
-									display(row, missingIngredients);
-								}
-							}
-							if (extraIngredients > 1){
-								if(match == numOfIngredients - 2){
-									display(row, missingIngredients);
-								}
+						}
+
+						if (extraIngredients > 1){
+							if(match == numOfIngredients - 2){
+								addToResultsDB(row, missingIngredients, numMissingIngs);
 							}
 						}
 
+					}
+        		}
 
-	        		}
-	      		}
-	     	},errorHandler);
-	 	},errorHandler,nullHandler);
-	 
-	 	resultsText.innerHTML = "You found no recipes";
-	 
+        		showResults();
+
+      		}
+     	},errorHandler);
+ 	},errorHandler,nullHandler);
+
+	document.getElementById("hidden").style.display = 'block';
 }
 
-function sort(){
 
-}
-
-
-function display(row, missingIngredients){
-	var id = row.RecipeID
+function addToResultsDB(row, missingIngredients, numMissingIngs){
 	
-	resultsText.innerHTML = "You found recipe(s)";
-	div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.RecipeName + '</div><a href="#" class="findButton" onclick="addToMyRecipes(' + id + ')">+</a>(ingredients needed: ' + missingIngredients + ')<br><br><br><br></div>'
+	db.transaction(function(transaction){
+		transaction.executeSql('INSERT INTO Results(ResultsRecipeName, ResultsRecipeType, ResultsIngredient1, ResultsIngredient2, ResultsIngredient3, ResultsMissingIngredients,NumMissingIngredients) VALUES (?,?,?,?,?,?,?)',[row.RecipeName,row.RecipeType,row.Ingredient1,row.Ingredient2,row.Ingredient3,missingIngredients,numMissingIngs],nullHandler,errorHandler);
+	},errorHandler,successCallBack);
+
 }
 
 
-function addToMyRecipes(id){
+function sortResults(){
 
-	db.transaction(function(transaction) {
-		transaction.executeSql('SELECT * FROM AllRecipes;', [], function(transaction, result) {
+	div.innerHTML = ("");
+
+	db.transaction(function(tx){
+		tx.executeSql('SELECT * FROM Results ORDER BY NumMissingIngredients ASC', [], function(transaction, result) {
 			if (result != null && result.rows != null) {
 		        for (var i = 0; i < result.rows.length; i++) {
-		          	var row = result.rows.item(i);
-		          	
-		          	if(row.RecipeID == id){
-		          		var MyID = row.RecipeID
-          				var newName = row.RecipeName
-          				var newType = row.RecipeType
-          				var ing1 = row.Ingredient1
-			   	 		var ing2 = row.Ingredient2
-			  			var ing3 = row.Ingredient3
-
-			  			db.transaction(function(transaction) {
-					  		transaction.executeSql('INSERT INTO MyRecipes(MyRecipeName, MyRecipeType, MyIngredient1, MyIngredient2, MyIngredient3) VALUES (?,?,?,?,?)',[newName, newType, ing1, ing2, ing3]);
-						});
-
-			  			alert("Added to My Recipes");
-			  		}
+		        	var row = result.rows.item(i);
+					div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.ResultsRecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + row.ResultsRecipeID + ')">+</a>(Additional ingredients needed: ' + row.ResultsMissingIngredients + ')<br><br><br><br></div>'
 		        }
 			}
 		},errorHandler);
 	},errorHandler,nullHandler);
 
-	MyListDBValues();
+}
+
+function showResults(){
+
+	resultsText.innerHTML = "You found recipe(s)";
+
+	db.transaction(function(transaction) {
+		transaction.executeSql('SELECT * FROM Results', [], function(transaction, result) {
+			if (result != null && result.rows != null) {
+		        for (var i = 0; i < result.rows.length; i++) {
+		        	var row = result.rows.item(i);
+
+					div.innerHTML = div.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.ResultsRecipeName + '</div><a href="#" class="addButton" onclick="addToMyRecipes(' + row.ResultsRecipeID + ')">+</a>(Additional ingredients needed: ' + row.ResultsMissingIngredients + ')<br><br><br><br></div>'
+		        }
+			}
+		},errorHandler);
+	},errorHandler,nullHandler);
+		 
+}
+
+function DropResultsDB(){
+	db.transaction(function(transaction){
+		transaction.executeSql('DROP TABLE Results');
+		transaction.executeSql('CREATE TABLE IF NOT EXISTS Results(ResultsRecipeID INTEGER PRIMARY KEY AUTOINCREMENT, ResultsRecipeName TEXT NOT NULL, ResultsRecipeType TEXT NOT NULL, ResultsIngredient1 TEXT NOT NULL, ResultsIngredient2 TEXT NOT NULL, ResultsIngredient3 TEXT NOT NULL, ResultsMissingIngredients)',[],nullHandler,errorHandler);
+
+	})
+
+	showResults();
+}
+
+
+function addToMyRecipes(id){
+
+	db.transaction(function(transaction){
+		transaction.executeSql('SELECT * FROM Results WHERE ResultsRecipeID=?', [id], function(transaction, result) {
+	      		
+      		var row = result.rows.item(0);
+      	
+  			db.transaction(function(transaction) {
+		  		transaction.executeSql('INSERT INTO MyRecipes(MyRecipeName, MyRecipeType, MyIngredient1, MyIngredient2, MyIngredient3) VALUES (?,?,?,?,?)',[row.ResultsRecipeName,row.ResultsRecipeType,row.ResultsIngredient1,row.ResultsIngredient2,row.ResultsIngredient3]);
+			});
+
+  			alert("Added to My Recipes");	
+		        
+		},errorHandler);
+	},errorHandler,nullHandler);
 
 }
 
@@ -340,28 +408,27 @@ function MyListDBValues() {
 
 function showMyRecipes(){
 
-	db = openDatabase(shortName, version, displayName,maxSize);
-
 	myRecipes = document.getElementById("MyRecipes");
 	myRecipes.innerHTML = "";
 
 	db.transaction(function(transaction) {
-		transaction.executeSql('SELECT * FROM MyRecipes;', [], function(transaction, result) {
+		transaction.executeSql('SELECT * FROM MyRecipes', [], function(transaction, result) {
 			if (result != null && result.rows != null) {
 		        for (var i = 0; i < result.rows.length; i++) {
-		          	var row = result.rows.item(i);
+		        	var row = result.rows.item(i);
 
 		          	var myRecipeID = row.MyRecipeID
 
-		          	myRecipes.innerHTML = myRecipes.innerHTML + row.MyRecipeName + '<button onclick="removeFromMyRecipes(' + myRecipeID + ')">Remove from My Recipes</button> <br><br>';
+		          	myRecipes.innerHTML = myRecipes.innerHTML + '<div class="searchResult"> <div class="recipeNames">' + row.MyRecipeName + '</div><a href="#" class="addButton" onclick="removeFromMyRecipes(' + myRecipeID + ')">-</a></div><br><br>';
 		        }
 			}
 		},errorHandler);
 	},errorHandler,nullHandler);
 		 
-	return;
+	MyListDBValues();
 
 }
+
 
 function removeFromMyRecipes(myRecipeID){
 
