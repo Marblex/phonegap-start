@@ -5,6 +5,8 @@
 
 		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/android.css" />
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 		
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/jPushMenu.js"></script>
@@ -33,20 +35,30 @@
 			</h1>
 		</div>
 
-		<div class="background">
-			<div id="searchText" class="topBlock">
-				Enter your ingredients...
-			</div>
+		<div class="background" style="padding-top:65px">
+			<div class="content">
+				<div id="searchText" class="topBlock">
+					Enter the recipes ingredients...
+					<div class = 'addIng'>
+						<a href="#" class="addButton" onclick="addIngredient()">+</a>
+					</div>
+				</div>
 
-			<div class="ingredients-form">
+				<div id='addIngredientsForm' class="ingredients-form">
 
-				<input id="newRecipeName" type="text" placeholder="Recipe Name">
-				<input id="newIngredient1" type="text" placeholder="Ingredient 1">
-				<input id="newIngredient2" type="text" placeholder="Ingredient 2">
-				<input id="newIngredient3" type="text" placeholder="Ingredient 3">
-				<br><br>
+					<input id="newIngredient1" type="text" placeholder="Ingredient 1">
+					<input id="newIngredient2" type="text" placeholder="Ingredient 2">
+					<input id="newIngredient3" type="text" placeholder="Ingredient 3">
+				</div>
+				<div class="ingredients-form">
 
-				<div class='content'>
+					<div id="searchText" class="topBlock">
+						Enter the recipes details...
+					</div>
+					<br>
+
+					<input id="newRecipeName" type="text" placeholder="Recipe Name">
+					<br><br><br>
 
 					<div class= "additionalHeading">
 						Recipe Type
@@ -67,19 +79,17 @@
 						</div>
 					</div>
 
+					<a href="#" class="findButton" id="findButton" onclick="AddValueToDB()">ADD RECIPE</a>
+					<br>
+					<br>
+					<input type="button" value="Refresh" onClick="ListDBValues()">
+					<input type="button" value="Reset Database" onClick="DropDB()">
+					<br>
+					<br>
+					<span style="font-weight:bold;">Currently in All Recipes DB:</span>
+					<span id="lbRecipes"></span>
 				</div>
-
-				<a href="#" class="findButton" id="findButton" onclick="AddValueToDB()">ADD RECIPE</a>
-				<br>
-				<br>
-				<input type="button" value="Refresh" onClick="ListDBValues()">
-				<input type="button" value="Reset Database" onClick="DropDB()">
-				<br>
-				<br>
-				<span style="font-weight:bold;">Currently in All Recipes DB:</span>
-				<span id="lbRecipes"></span>
 			</div>
-
 		</div>
 	</body>
 </html>

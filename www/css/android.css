@@ -86,7 +86,6 @@ html{
 	text-align: center;
 	width: 100%;
 	z-index: 1;
-	font-color: ;
 }
 
 .additionalHeading:before{
@@ -138,23 +137,7 @@ html{
 .findButton {
 	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(112,189,34,1)), color-stop(0%, rgba(83,148,22,1)), color-stop(49%, rgba(113,186,41,1)), color-stop(100%, rgba(112,189,34,1)));
 	background: -webkit-linear-gradient(left, rgba(112,189,34,1) 0%, rgba(83,148,22,1) 0%, rgba(113,186,41,1) 49%, rgba(112,189,34,1) 100%);
-	-moz-box-shadow: 0px 1px 0px 0px #c1ed9c;
-	-webkit-box-shadow: 0px 1px 0px 0px #c1ed9c;
-	box-shadow: 0px 1px 0px 0px #c1ed9c;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5da11d', endColorstr='#8cb82b');
-	background-color:#5da11d;
-	-webkit-border-top-left-radius:6px;
-	-moz-border-radius-topleft:6px;
-	border-top-left-radius:6px;
-	-webkit-border-top-right-radius:6px;
-	-moz-border-radius-topright:6px;
-	border-top-right-radius:6px;
-	-webkit-border-bottom-right-radius:6px;
-	-moz-border-radius-bottomright:6px;
-	border-bottom-right-radius:6px;
-	-webkit-border-bottom-left-radius:6px;
-	-moz-border-radius-bottomleft:6px;
-	border-bottom-left-radius:6px;
+	border-radius:6px;
 	text-indent:0;
 	border:1px solid #5da11d;
 	display:inline-block;

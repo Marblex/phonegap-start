@@ -6,12 +6,15 @@ jQuery(document).ready(function($) {
 
 function addIngredient(){
 	var ingsFormDiv = document.getElementById("ingredientsForm");
+	var addIngsFormDiv = document.getElementById("addIngredientsForm");
 
 	if(numIngs < 8){
 
 		ingID = numIngs + 1;
 
 		ingsFormDiv.innerHTML = ingsFormDiv.innerHTML + '<input type="text" placeholder="Ingredient ' + ingID + '" id="ingredient' + ingID + '"=></input>';
+
+		addIngsFormDiv.innerHTML = addIngsFormDiv.innerHTML + '<input type="text" placeholder="Ingredient ' + ingID + '" id="newIngredient' + ingID + '"=></input>';
 
 		numIngs ++;
 	}
