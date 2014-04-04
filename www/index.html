@@ -9,10 +9,11 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
 
 		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jPushMenu.js"></script>
+		<script type="text/javascript" src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
 		<script type="text/javascript" src="js/phonegap.js"></script>
 		<script type="text/javascript" src="js/recipeList.js"></script>
+		<script type="text/javascript" src="js/ingredientList.js"></script>
 		
 		<title>Find Recipe</title>
 
@@ -29,13 +30,18 @@
 			$(document).ready(function () {
 			    $("input[name=sortResults]:radio").change(function () {
 			        if ($("#sort1").attr("checked")) {
-			            sortResults();
+			        	var sortParameter = "ingredientsRequired";
+			            showResults(sortParameter);
 			        }
 			        if ($("#sort2").attr("checked")) {
-			            alert('Sort by Nutritional value');
+			        	var sortParameter = "healthinessRating";
+			            showResults(sortParameter);
 			        }   
 			    })
 			});
+
+			pageState = "index";
+			addReady = "index";
 
 		</script>
 
@@ -71,72 +77,67 @@
 							</div>
 						</div>
 
-						<div id='ingredientsForm' class="ingredients-form">
+						<form>
+							<div id='ingredientsForm' class="ingredients-form">
 
-							<input type="text" placeholder="Ingredient 1" id="ingredient1"=></input> 
-							<input type="text" placeholder="Ingredient 2" id="ingredient2"=></input>
-							<input type="text" placeholder="Ingredient 3" id="ingredient3"=></input>
+								<input type="text" pattern="[A-Za-z]" placeholder="Ingredient 1" id="ingredient1" required></input> 
+								<input type="text" pattern="[A-Za-z]" placeholder="Ingredient 2" id="ingredient2" required></input>
+								<input type="text" pattern="[A-Za-z]" placeholder="Ingredient 3" id="ingredient3"></input>
+								
+							</div>
+
+							<br>
+
+						    <div class="additionalHeading">
+						    	Maximum additional ingredients
+						    </div>
+						        
+							<div class="form-field-container">
+								<div id="numExtraIngs" class="form-field-buttonset">
+									<input type="radio" name="addIngs" id="numExtraIngsOne" value="One">
+									<label for="numExtraIngsOne">One</label>
+									<input type="radio" name="addIngs" id="numExtraIngsTwo" value="Two" checked="checked">
+									<label for="numExtraIngsTwo">Two</label>
+									<input type="radio" name="addIngs" id="numExtraIngsThree" value="Three">
+									<label for="numExtraIngsThree">Three</label>
+									<input type="radio" name="addIngs" id="numExtraIngsFour" value="Four">
+									<label for="numExtraIngsFour">Four</label>
+								</div>
+							</div>
 							
-						</div>
+							<div class= "additionalHeading">
+						    	Show the following recipe type
+						    </div>
 
-						<br>
-
-					    <div class="additionalHeading">
-					    	Maximum additional ingredients
-					    </div>
-					        
-						<div class="form-field-container">
-							<div id="numExtraIngs" class="form-field-buttonset">
-								<input type="radio" name="addIngs" id="numExtraIngsOne" value="One">
-								<label for="numExtraIngsOne">One</label>
-								<input type="radio" name="addIngs" id="numExtraIngsTwo" value="Two" checked="checked">
-								<label for="numExtraIngsTwo">Two</label>
-								<input type="radio" name="addIngs" id="numExtraIngsThree" value="Three">
-								<label for="numExtraIngsThree">Three</label>
-								<input type="radio" name="addIngs" id="numExtraIngsFour" value="Four">
-								<label for="numExtraIngsFour">Four</label>
+							<div class="form-field-container">
+								<div id="numExtraIngs" class="form-field-buttonset">
+									<input type="radio" name="adType" id="allRecs" value="allRecs" checked="checked">
+									<label for="allRecs">All</label>
+									<input type="radio" name="adType" id="vegetarian" value="vegetarian">
+									<label for="vegetarian">Vegetarian</label>
+									<input type="radio" name="adType" id="vegan" value="vegan">
+									<label for="vegan">Vegan</label>
+									<input type="radio" name="adType" id="glutenFree" value="glutenFree">
+									<label for="glutenFree">Gluten Free</label>
+								</div>
 							</div>
-						</div>
-						
-						<div class= "additionalHeading">
-					    	Show the following recipe type
-					    </div>
 
-						<div class="form-field-container">
-							<div id="numExtraIngs" class="form-field-buttonset">
-								<input type="radio" name="adType" id="allRecs" value="allRecs" checked="checked">
-								<label for="allRecs">All</label>
-								<input type="radio" name="adType" id="vegetarian" value="vegetarian">
-								<label for="vegetarian">Vegetarian</label>
-								<input type="radio" name="adType" id="vegan" value="vegan">
-								<label for="vegan">Vegan</label>
-								<input type="radio" name="adType" id="glutenFree" value="glutenFree">
-								<label for="glutenFree">Gluten Free</label>
-							</div>
-						</div>
-
-					  	<a href="#" class="findButton" id="findButton" onclick="find()">FIND RECIPES</a>
-					  	<br>
+						  	<a href="#" class="findButton" id="findButton" onclick="find()">FIND RECIPES</a>
+						  	<br>
+					  	</form>
 					</div>
 				</li> 	 	  		
 			</div>
 
-			<br>
-
 			<div id = 'hidden' class = 'hidden'>
 				<div id = 'content'>
-					<div class= "additionalHeading">
-				    	Sort By
-				    </div>
-				    
-				    <br>
-
-					<div class="form-field-container">
+					<div class="form-field-container" style = "padding-bottom: 10px">
 						<div id="sort" class="form-field-buttonset">
-							<input type="radio" name="sortResults" id="sort1">
-							<label for="sort1">Additional ingredients required</label>
-							<input type="radio" name="sortResults" id="sort2">
-							<label for="sort2">Healthiest</label>
+							<ul>
+								<li class = "sort-by">Sort by:</li>
+								<li><input type="radio" name="sortResults" id="sort1" checked="selected"><label for="sort1">Ingredients required</label></li>
+								<li><input type="radio" name="sortResults" id="sort2"><label for="sort2">Healthiest</label></li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -151,6 +152,9 @@
 
 		</div>
 	</body>
+	<script>
+
+	</script>
 </html>
 
 

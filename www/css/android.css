@@ -2,7 +2,7 @@ body{
 	background-color: #f7f7f7; /* Background color */
 	color: #222; /* Foreground color used for text */
 	font-family: 'Roboto', sans-serif;
-	font-size: 14px;
+	font-size: 16px;
 	margin: 0;
 	padding: 0;
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -80,14 +80,29 @@ html{
 	padding-right: 22px;
 }
 
+input:focus::-webkit-input-placeholder {
+	opacity: 0;
+}
+
+#newRecipeDescription{
+	border-radius: 3px;
+	border: 1px solid #d4d4d4;
+	font-size: 18px;
+	padding: 10px;
+	width: 100%;
+	height: 200px;
+	resize: none;
+	margin-top: 3px;
+}
+
 .additionalHeading{
 	display: block;
-	font-size: .875em;
 	margin-bottom: 10px;
 	position: relative;
 	text-align: center;
 	width: 100%;
 	z-index: 1;
+	font-size: 15px;
 }
 
 .additionalHeading:before{
@@ -117,6 +132,20 @@ html{
 	padding-left: 12px;
 	padding-bottom: 20px;
 	font-size: 18px;
+}
+
+ul{
+	padding-left: 0px;
+}
+
+li{
+	display: inline;
+}
+
+.sort-by{
+	color: #88898c;
+	font-size: 15px;
+	padding-right: 15px;
 }
 
 .box-shadow-menu {
@@ -150,7 +179,7 @@ html{
 	font-style:normal;
 	height:51px;
 	line-height:51px;
-	width:156px;
+	width:100%;
 	text-decoration:none;
 	text-align:center;
 	text-shadow:1px 1px 0px #689324;
@@ -158,49 +187,89 @@ html{
 	margin-top: 20px;
 }
 
-
-.addButton {
-	background-color:#71bd24;
-	border-radius:11px;
-	border:1px solid #5da11d;
-	display:inline-block;
-	color:#ffffff;
-	font-size:34px;
-	font-weight:bold;
-	font-style:normal;
-	height:37px;
-	line-height:33px;
-	width:51px;
-	text-decoration:none;
-	text-align:center;
-}
-
-.recipeNames{
-	font-size:20px;
-	font-weight: bold;
-	color: #5da11d;
-}
-
 .background{
 	padding-top: 15px;
 }
 
+/* SEARCH RESULTS */
 
-.searchResult{
+.search-result{
 	background-color:#ffffff;
 	margin-left: 12px;
 	margin-right: 12px;
-	margin-bottom: 12px;
-	border: 1px dashed #5da11d;
+	margin-bottom: 16px;
+	border: 2px solid #e1e1e1;
+	padding: 15px 15px 15px 15px;
+	
+}
+
+.recipe-names{
+	font-size:24px;
+	font-weight: bold;
+	color: #5da11d;
+	width: 275px;
+	padding-bottom: 15px;
+}
+
+.inline{
+	display: inline-block;
+}
+
+.grey-text{
+	color: #88898c;
+	font-size: 14px;
+}
+
+.green-text{
+	color: #5da11d;
+	font-size: 15px;
+}
+
+.addButton {
+	float: right;
+	background-color:#71bd24;
+	border-radius:6px;
+	border:1px solid #5da11d;
+	display:inline-block;
+	color:#ffffff;
+	font-size:30px;
+	font-weight:bold;
+	font-style:normal;
+	height:36px;
+	line-height:33px;
+	width:48px;
+	text-decoration:none;
+	text-align:center;
+}
+
+.removeButton {
+	float: right;
+	background-color: #c80000;
+	border-radius:6px;
+	border:1px solid #940000;
+	display:inline-block;
+	color:#ffffff;
+	font-size:30px;
+	font-weight:bold;
+	font-style:normal;
+	height:36px;
+	line-height:29px;
+	width:48px;
+	text-decoration:none;
+	text-align:center;
+}
+
+.ingredients-needed{
 	padding-top: 10px;
-	padding-left: 15px;
-	border-radius: 4px;	
+	color: #c80000;
+	font-size: 14px;
+	padding-bottom: 20px;
 }
 
 
 #additionalOptions{
 	background-color:#3e8100;
-	font-size:18px;
+	font-size:16px;
 	text-decoration:none;
 	width: 100%;
 	padding-bottom: 1px;
@@ -221,7 +290,6 @@ html{
 	padding-top: 20px;
 	padding-bottom: 0px;
 	padding-right: 12px;
-	font-size: 18px;
 	color: #88898c;
 }
 
@@ -260,14 +328,15 @@ li{
     padding: 10px 12px;
     border: 1px solid #71bd24;
     cursor: pointer;
-    margin: -3px;
+    margin: -2.5px;
 
 }
 
 .form-field-container{
-	padding-left: 5px;
-	padding-bottom: 40px;
+	padding-left: 2.5px;
+	padding-bottom:40px;
 	color: #71bd24;
+	width: 100%;
 }
 
 #hidden{

@@ -5,14 +5,19 @@
 
 		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/android.css" />
-		
-		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jPushMenu.js"></script>
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
+		<script type="text/javascript" src="js/phonegap.js"></script>
+		<script type="text/javascript" src="js/recipeList.js"></script>
+		<script type="text/javascript" src="js/ingredientList.js"></script>
 		
 		<title>Random Recipe</title>
 	</head>
-	<body>
+	<body onload = "findRandomRecipe()">
 		
 		<!-- Menu -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">

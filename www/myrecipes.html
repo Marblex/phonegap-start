@@ -5,16 +5,39 @@
 
 		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
 		<link rel="stylesheet" type="text/css" href="css/android.css" />
-		
-		<script src="js/jquery-1.9.1.min.js"></script>
-		<script src="js/jPushMenu.js"></script>
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jPushMenu.js"></script>
 		<script type="text/javascript" src="js/backendJavascript.js"></script>
 		<script type="text/javascript" src="js/phonegap.js"></script>
 		<script type="text/javascript" src="js/recipeList.js"></script>
+		<script type="text/javascript" src="js/ingredientList.js"></script>
 		
 		<title>My Recipes</title>
+
+		<script>
+
+			$(document).ready(function () {
+			    $("input[name=sortResults]:radio").change(function () {
+			        if ($("#sort1").attr("checked")) {
+			        	var sortParameter = "ingredientsRequiredMyRecipes";
+			            showResults(sortParameter);
+			        }
+			        if ($("#sort2").attr("checked")) {
+			        	var sortParameter = "healthinessRatingMyRecipes";
+			            showResults(sortParameter);
+			        }   
+			    })
+			});
+
+			pageState = "myRecipes";
+
+		</script>
+
 	</head>
-	<body onload="pageLoad()">
+	<body onload="myRecipesPageLoad()">
 		
 		<!-- Menu -->
 		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left">
@@ -32,8 +55,11 @@
 				My Recipes
 			</h1>
 		</div>
-		<br><br><br><br><br><br>
+
+		<br><br><br>
+		
 		<div id="MyRecipes">
 		</div>
+		<div id="forTesting"></div>
 	</body>
 </html>

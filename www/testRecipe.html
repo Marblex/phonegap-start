@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="index">
+	<head>
+		<meta http-equiv="content-type" content="text/html" />
+
+		<link rel="stylesheet" type="text/css" href="css/jPushMenu.css" />
+		<style>
+
+			.form-field-buttonset input:checked + label,
+			.form-field-checkbutton:checked + label {
+			    background-color: #71bd24;
+			    color: #ffffff;
+			}
+
+
+
+			.form-field-buttonset input[type=radio],
+			.form-field-checkbutton {
+			    display: none;
+			}
+
+
+
+			.form-field-buttonset label,
+			.form-field-checkbutton + label {
+			    display: inline-block;
+			    text-transform: uppercase;
+			    font-size: 13px;
+			    line-height: 13px;
+			    font-weight: 600;
+			    padding: 10px 12px 10px 10px;
+			    border: 1px solid #71bd24;
+			    cursor: pointer;
+			    margin: -2.5px;
+
+			}
+
+
+			.form-field-buttonset{
+				width: 100%;
+			}
+
+			.form-field-container{
+				
+				padding-bottom:40px;
+				color: #71bd24;
+				width: 100%;
+			}
+		</style>
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
+
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="js/jPushMenu.js"></script>
+		<script type="text/javascript" src="js/backendJavascript.js"></script>
+		<script type="text/javascript" src="js/phonegap.js"></script>
+		<script type="text/javascript" src="js/recipeList.js"></script>
+		<script type="text/javascript" src="js/ingredientList.js"></script>
+		
+		<title>Find Recipe</title>
+
+		<script>
+
+		    $(document).ready(function(){
+		      	$('.moreOptions').click(function(e){
+		        	e.preventDefault();
+		        	$(this).closest('li').find('.content').slideToggle();
+		      	});
+		    });
+
+
+			$(document).ready(function () {
+			    $("input[name=sortResults]:radio").change(function () {
+			        if ($("#sort1").attr("checked")) {
+			            sortResults();
+			        }
+			        if ($("#sort2").attr("checked")) {
+			            alert('Sort by Nutritional value');
+			        }   
+			    })
+			});
+
+			$(function() {
+			    $("#hide").click(function(){
+			           
+			            $("#block-1").hide('fast');
+			            $("#block-2").show('fast');
+			    });
+			    $("#show").click(function(){
+			           
+			            $("#block-2").hide('fast');
+			            $("#block-1").show('fast');
+			    });
+			});
+
+			addReady = "index";
+
+		</script>
+
+	</head>
+	<body>
+		<br>
+		<div class="search-result">
+		
+				<div class="recipe-names inline">
+					Recipe Name Goes Here Because well why not
+				</div>
+				<a href="#" class="addButton inline" onclick="addToMyRecipes(' + row.ResultsRecipeID + ')">+</a>
+				<div id = "ratingImage">
+					<img src="img/five-hearts.png">
+				</div>
+				<br>
+				<div class="ingredients-needed">
+					(Required: ingredient 1, ingredient 2, ingredient 3, ingredient 4)
+				</div>
+				<br>
+				
+				<button id="hide">Hide</button>
+				<button id="show">Show</button>
+
+				<div id="block-1" class="toHide">
+					<div class="grey-text">
+						tuna
+						pasta
+
+						<br><br><br>
+					</div>
+					<div class="green-text">Optional</div>
+					<br>
+					<div class="grey-text">
+						OPTIONAL INGREDIENTS HERE
+					</div>
+					<br>
+				</div>
+
+				<div id="block-2" class="toHide grey-text">
+					Lorem Ipsum
+				</div>
+		</div>
+
+	</body>
+</html>
+
+
+
